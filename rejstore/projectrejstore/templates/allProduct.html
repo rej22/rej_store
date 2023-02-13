@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+  {% if categoryObj %}
+     {{ categoryObj.categoryDescription|truncatewords:155 }}
+  {% else %}
+     Rej Store
+  {% endif %}
+{% endblock %}
+
+{% block title %}
+  {% if categoryObj %}
+     {{ categoryObj.categoryName }}
+  {% else %}
+     Rej Store
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+   {% if categoryObj %}
+      <div class="container">
+          <div class="row mx-auto">
+              <img src="{{categoryObj.categoryImage.url}}" alt="{{categoryObj.categoryName}}">
+          </div>
+      </div>
+   {% else %}
+      <div class="container">
+          <div class="row mx-auto">
+              <img class="all_product_banner" src="{% static 'img/banner/raj_banner.png' %}" alt="rejbanner">
+          </div>
+          <div>
+              <div>
+                  <div>
+                      <h1 class="text-center our_products_collections_title">Our Products Collections</h1>
+                      <p class="text-justify our_products_collections_p">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+   {% endif %}
+   <div class="container all_product_container">
+       <div class="row mx-auto text-center all_product_row">
+           {% for product in products %}
+             <div class="row card_product_col col-9 col-sm-6 col-md-3 xol-lg-3">
+                 <div class="card" style="width: 18rem;">
+                    <a href="{{product.get_url}}"><img src="{{product.productImage.url}}" class="card_all_product" alt="{{product.productName}}"></a>
+                    <div class="card-body">
+                      <p class="card-text card_product_name">{{product.productName}}</p>
+                    </div>
+                 </div>
+             </div>
+           {% endfor %}
+       </div>
+       <div class="pagination_section">
+           {% if products.paginator.num_pages > 1 %}
+              <div class="text-center page_num">
+                  {% for pg in products.paginator.page_range %}
+                     <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+                  {% endfor %}
+              </div>
+           {% endif %}
+       </div>
+   </div>
+{% endblock %}
