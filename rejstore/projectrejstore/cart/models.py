@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.db import models
 from rej_home.models import Product
 
@@ -9,7 +8,8 @@ class Cart(models.Model):
 
     class Meta:
 
-        orddb_table = 'Cart'ring = ['date_added']
+        db_table = 'Cart'
+        ordering  = ['date_added']
 
     def __str__(self):
         return '{}'.format(self.cart_id)
@@ -29,8 +29,3 @@ class CartItems(models.Model):
 
     def __str__(self):
         return '{}'.format(self.product)
-=======
-from django.db import models
-
-# Create your models here.
->>>>>>> origin/main
